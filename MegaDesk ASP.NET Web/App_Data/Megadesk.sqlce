@@ -1,0 +1,15 @@
+﻿-- Script Date: 11/10/2017 8:21 PM  - ErikEJ.SqlCeScripting version 3.5.2.73
+CREATE TABLE [MegadeskTable] (
+  [Id] int IDENTITY (1,1)  NOT NULL
+, [customer] nvarchar(100)  NOT NULL
+, [date] datetime NOT NULL
+, [width] int  NOT NULL
+, [depth] int  NOT NULL
+, [drawers] int  NOT NULL
+, [material] nvarchar(100)  NOT NULL
+, [rushorder] int  NOT NULL
+, [amount] int  NOT NULL
+);
+GO
+ALTER TABLE [MegadeskTable] ADD CONSTRAINT [PK_MegadeskTable] PRIMARY KEY ([Id]);
+GO

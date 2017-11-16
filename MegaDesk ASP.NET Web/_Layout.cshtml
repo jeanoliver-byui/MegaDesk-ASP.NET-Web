@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@Page.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Style/normalize.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="~/Styles/Megadesk.css" rel="stylesheet" type="text/css" media="screen" />
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1990 12:00:00 GMT" />
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <h1>MegaDesk ASP.NET Web Site</h1>
+        </div>
+        <div id="nav">
+            <ul id="MENU">
+                <li><a href="~/AddQuote" title="Add Quote">Add</a></li>
+                <li><a href="~/ViewQuotes" title="View All Quotes">View All</a></li>
+                <li><a href="~/SearchQuote" title="Search Quote">Search</a></li>
+                <li><a href="~/EditQuote" title="Edit">Edit</a></li>
+                <li><a href="~/DeleteQuote" title="Delete">Delete</a></li>
+                <li><a href="~/About" title="View The About App Page">About</a></li>
+            </ul>
+            <br>
+        </div>
+        <br />
+        <br />
+        <div id="main">
+            @RenderBody()
+        </div>
+        <div id="footer">
+            &copy; @DateTime.Now.Year MegaDesk ASP.NET Web Site
+        </div>
+    </div>
+</body>
+</html>

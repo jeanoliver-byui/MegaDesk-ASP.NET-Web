@@ -1,0 +1,131 @@
+﻿@{
+    Page.Title = "MegaDesk ASP.NET Web";
+    Layout = "~/_Layout.cshtml";
+
+    var MaterialSurfaceList = new List<MegaDesk_ASP_NET_Web.Desk.DesktopMaterial>();
+    var desk = new MegaDesk_ASP_NET_Web.Desk();
+    //var quote = new MegaDesk_ASP_NET_Web.DeskQuote();
+
+    var message = "";
+    // Specify validation requirements for different fields.
+    Validation.RequireField("customer", "Customer name is required");
+    Validation.RequireField("width", "Width is required");
+    Validation.RequireField("depth", "Depth is required");
+    Validation.RequireField("drawers", "Drawers quantity is required");
+    Validation.RequireField("rushorder", "Rush order is required");
+    Validation.RequireField("material", "Material is required");
+    Validation.Add("width", Validator.Integer("Width must be an integer"));
+    Validation.Add("width", Validator.Range(24, 96, "Width must be between 24 and 96 Inches"));
+    Validation.Add("depth", Validator.Integer("Depth must be an integer"));
+    Validation.Add("depth", Validator.Range(24, 96, "Depth must be between 12 and 48 Inches"));
+
+    if (IsPost)
+    {
+        // Before processing anything, make sure that all user input is valid.
+        if (Validation.IsValid())
+        {
+            var customer = Request["customer"];
+            var width = Request["width"].AsInt();
+            var depth = Request["depth"].AsInt();
+            var drawers = Request["drawers"].AsInt();
+            var rushorder = Request["rushorder"].AsInt();
+            var material = Request["material"];
+            var date = DateTime.Today.ToString("MM/dd/yyyy");
+
+
+            //surface = desk.calculateSurface(Convert.ToInt32(width), Convert.ToInt32(depth));
+            //desk.surface = Convert.ToInt32(surface);
+
+            //price = quote.calculatePrice(desk, material, quote);
+            //quote.price = Convert.ToInt32(price);
+
+            var amount = 9999;
+
+            message += @"Please, review the quote informations entered and submit";
+            message += @"Customer name: " + customer;
+            message += @"<br/>Desk Width: " + width.ToString();
+            message += @"<br/>Desk Depth: " + depth.ToString();
+            message += @"<br/>Drawers quantity: " + drawers.ToString();
+            message += @"<br/>Surface Material: " + material;
+            message += @"<br/>Rush Order Days: " + rushorder.ToString();
+            message += @"<br/>Today is " + date;
+
+            // Further processing here
+            var db = Database.Open("WebPagesMegadesk");
+            var insertCommand = "INSERT INTO MegadeskTable (customer, date, width, depth, drawers, material, rushorder, amount) VALUES(@0, @1, @2, @3, @4, @5, @6, @7)";
+            db.Execute(insertCommand, customer, date, width, depth, drawers, material, rushorder, amount);
+            Response.Redirect("~/Megadesk.cshtml");
+        }
+    }
+}
+
+    <h2>Add Quote</h2>
+        <form method="post">
+            <fieldset>
+                <legend>Informations for a new Desk Quote</legend>
+                <p>
+                    <label for="customer">Customer name: </label>
+                    <input type="text"
+                           name="customer"
+                           value="@Request["customer"]" />
+                    @Html.ValidationMessage("customer")
+                </p>
+                
+                <p>
+                    <label for="width">Width: </label>
+                    <input type="text"
+                           name="width"
+                           value="@Request["width"]" />
+                    @Html.ValidationMessage("width")
+                </p>
+
+                <p>
+                    <label for="depth">Depth: </label>
+                    <input type="text"
+                           name="depth"
+                           value="@Request["depth"]" />
+                    @Html.ValidationMessage("depth")
+                </p>
+
+                <p>
+                    <label for="drawers">Drawers:</label>
+                    <select name="drawers">
+                        @Request.Form["rushDays"]
+                        <option selected>0</option>
+                        @for (int i = 1; i <= 10; i++) {
+                        <option>@i</option>
+                        }
+                    </select>
+                </p>
+                <p>
+                <label>Rush Order Days:</label>
+                <select name="rushorder">@Request.Form["rushorder"]
+                    <option selected>0</option>
+                    <option>3</option>
+                    <option>5</option>
+                    <option>7</option>
+                </select>                   
+                </p>
+                @*@Request.Form["rushorder"]*@
+                <p>
+                    <label for="material">Material:</label>
+                    <select name="material">
+                        @Request.Form["material"]
+                    <option selected>Oak</option>
+                    <option>Laminate</option>
+                    <option>Pine</option>
+                    <option>Rossewood</option>
+                    <option>Veneer</option>
+                </select>
+            </p>
+                <p>
+                    <input type="submit" name="buttonSubmit" value="Add Quote" />
+                </p>
+       </fieldset>
+</form>
+<p class="last_paragraph">
+    <a href="ViewQuotes.cshtml?action=list_quotes">View Quotes List</a>
+</p>
+
+
+

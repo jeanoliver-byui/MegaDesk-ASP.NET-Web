@@ -1,0 +1,129 @@
+﻿@{
+    Page.Title = "MegaDesk ASP.NET Web";
+    Layout = "~/_Layout.cshtml";
+
+    var customer = "";
+    int width = 0;
+    int depth = 0;
+    int drawers = 0;
+    int rushorder = 0;
+    var material = "";
+    int amount = 0;
+    var date = "";
+
+    var deskQuoteId = "";
+
+    if (!IsPost)
+    {
+        if (!Request.QueryString["Id"].IsEmpty() && Request.QueryString["Id"].IsInt())
+        {
+            deskQuoteId = Request.QueryString["Id"];
+            var db = Database.Open("WebPagesMegadesk");
+            var dbCommand = "SELECT * FROM MegadeskTable WHERE Id = @0";
+            var row = db.QuerySingle(dbCommand, deskQuoteId);
+
+            if (row != null)
+            {
+                customer = row.Customer;
+                date = row.Date;
+                width = row.Width;
+                depth = row.Depth;
+                drawers = row.Drawers;
+                material = row.Material;
+                rushorder = row.RushOrder;
+                amount = row.Amount;
+
+            }
+            else
+            {
+                Validation.AddFormError("No Desk Quote was found for that ID.");
+            }
+        }
+        else
+        {
+            Validation.AddFormError("No Desk Quote was selected.");
+        }
+    }
+
+    if (IsPost)
+    {
+        Validation.RequireField("customer", "You must enter a customer name");
+        Validation.RequireField("width", "You must enter a width value");
+        Validation.RequireField("depth", "You must enter a depth value");
+        Validation.RequireField("drawers", "Drawers quantity is required");
+        Validation.RequireField("material", "Material surface is required");
+        Validation.RequireField("rushorder", "Rush days is required");
+        Validation.RequireField("date", "You haven't entered a date");
+        Validation.RequireField("desquoteid", "No Desk Quote ID was submitted!");
+
+        deskQuoteId = Request.Form["deskQuoteId"];
+        customer = Request.Form["customer"];
+        date = DateTime.Today.ToString("MM/dd/yyyy");
+        width = Request.Form["width"].AsInt();
+        depth = Request.Form["depth"].AsInt();
+        drawers = Request.Form["drawers"].AsInt();
+        rushorder = Request.Form["rushorder"].AsInt();
+        material = Request.Form["material"];
+        amount = Request.Form["amount"].AsInt();
+
+
+        if (Validation.IsValid())
+        {
+            var db = Database.Open("WebPagesScriptures");
+            var updateCommand = "UPDATE MegadeskTable SET customer=@0, date=@1, width=@2, depth=@3, drawers=@4, material=@5, rushorder=@6, amount=@7 WHERE Id=@deskQuoteId";
+            db.Execute(updateCommand, deskQuoteId, customer, date, width, depth, drawers, material, rushorder, amount);
+            Response.Redirect("~/Megadesk.cshtml");
+        }
+    }
+}
+
+<h2>Edit Desk Quote</h2>
+@Html.ValidationSummary()
+<form method="post">
+    <fieldset>
+        <legend>Desk Quote Information</legend>
+        <p>
+            <label for="customer">Customer Name:</label>
+            <input type="text" name="customer" value="@customer" />
+        </p>
+
+        <p>
+            <label for="date">Date:</label>
+            <input type="text" name="date" value="@date" />
+        </p>
+
+        <p>
+            <label for="width">Width:</label>
+            <input type="text" name="width" value="@width" />
+        </p>
+
+        <p>
+            <label for="depth">Depth:</label>
+            <input type="text" name="depth" value="@depth" />
+        </p>
+
+        <p>
+            <label for="drawers">Drawers:</label>
+            <input type="text" name="drawers" value="@drawers" />
+        </p>
+        <p>
+            <label for="material">Surface Material:</label>
+            <input type="text" name="material" value="@material" />
+        </p>
+
+        <p>
+            <label for="rushorder">Rush days:</label>
+            <input type="text" name="rushorder" value="@rushorder" />
+        </p>
+
+        <p>
+            <label for="amount">Amount:</label>
+            <input type="text" name="amount" value="@amount" />
+        </p>
+        
+        <input type="hidden" name="deskquoteid" value="@deskQuoteId" />
+
+        <p><input type="submit" name="buttonSubmit" value="Submit Changes" /></p>
+    </fieldset>
+</form>
+<p><a href="~/Megadesk.cshtml">Return to Main Menu</a></p>

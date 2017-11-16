@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MegaDesk ASP.NET Web", "MegaDesk ASP.NET Web\MegaDesk ASP.NET Web.csproj", "{74939186-6650-4427-BD31-70762182F1DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MegaDesk ASP_NET Web", "MegaDesk ASP.NET Web\MegaDesk ASP_NET Web.csproj", "{74939186-6650-4427-BD31-70762182F1DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

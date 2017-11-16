@@ -1,0 +1,152 @@
+﻿/* Globlal Styles for the <nav> and <footer> area */
+
+nav, footer {
+    margin-top: 7px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    overflow: auto;
+}
+
+/*#header {
+    background-image: url(/Images/desk2.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size:contain;
+}*/
+#footer {
+    color: rgb(9,108,147);
+}
+
+h1 {
+    display:block;
+    font-size: 1.6em;
+   
+}
+
+h2 {
+    display: block;
+    font-size: 1.4em;
+}
+#container {
+    margin: 0 auto;
+    background-color: whitesmoke;
+    /*opacity: 0.5;*/
+    /*background: white;*/
+    padding: 20px;
+    color: rgb(103,105,107);
+    width: 760px;
+    border: solid;
+    border-color: rgb(128,131,143);
+}
+ 
+
+/*Strip the ul of padding and list styling*/
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+}
+
+/*Create a horizontal list with spacing*/
+li {
+    display: inline-block;
+    float:left;
+    margin-right: 2px;
+}
+
+/*Style for menu links*/
+li a {
+        display: block;
+        min-width: 100px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        font-family: helvetica,verdana,arial;
+        font-size: 12px;
+        font-weight: bold;
+        color: #fff;
+        background: #096c93;
+        text-decoration: none;
+        /*border-radius: 6px;*/
+    }
+
+/*Hover state for top level links*/
+li:hover a {
+   background: #0aa0d9;
+}
+
+.validation-summary-errors {
+    border: 2px solid red;
+    color: red;
+    font-weight: bold;
+    margin: 6px;
+    width: 30%;
+}
+
+.field-validation-error {
+    color: red;
+    font-weight: bold;
+    background-color: yellow;
+}
+
+.input-validation-error {
+    color: red;
+    font-weight: bold;
+    background-color: pink;
+}
+
+
+/*Prevent text wrapping*/
+li ul li a {
+    width: auto;
+    min-width: 100px;
+    padding: 0 20px;
+
+}
+
+.grid {
+    margin: 4px;
+    border-collapse: collapse;
+    width: 760px;
+    z-index: 0;
+}
+
+    .grid th, .grid td {
+        border: 1px solid #C0C0C0;
+        padding: 5px;
+    }
+
+.head {
+    background-color: #E8E8E8;
+    font-weight: bold;
+    color: #FFF;
+}
+
+.alt {
+    background-color: #E8E8E8;
+    color: #000;
+}
+
+span.caption {
+    width: 100px;
+}
+
+span.dataDisplay {
+    font-weight: bold;
+}
+
+/*.field-validation-error {
+    font-weight: bold;
+    color: red;
+    background-color: yellow;
+}
+
+.validation-summary-errors {
+    border: 2px dashed red;
+    color: red;
+    background-color: yellow;
+    font-weight: bold;
+    margin: 12px;
+}*/ 

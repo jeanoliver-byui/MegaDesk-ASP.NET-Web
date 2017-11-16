@@ -1,0 +1,104 @@
+﻿@{
+    Page.Title = "MegaDesk ASP.NET Web";
+    Layout = "~/_Layout.cshtml";
+
+    var customer = "";
+    int width = 0;
+    int depth = 0;
+    int drawers = 0;
+    int rushorder = 0;
+    var material = "";
+    int amount = 0;
+    var date = "";
+
+    var deskQuoteId = "";
+
+    if (!IsPost)
+    {
+        if (!Request.QueryString["Id"].IsEmpty() && Request.QueryString["Id"].IsInt())
+        {
+            deskQuoteId = Request.QueryString["Id"];
+            var db = Database.Open("WebPagesMegadesk");
+            var dbCommand = "SELECT * FROM MegadeskTable WHERE Id = @0";
+            var row = db.QuerySingle(dbCommand, deskQuoteId);
+            if (row != null)
+            {
+                customer = row.Customer;
+                date = row.Date;
+                width = row.Width;
+                depth = row.Depth;
+                drawers = row.Drawers;
+                material = row.Material;
+                rushorder = row.RushOrder;
+                amount = row.Amount;
+            }
+            else
+            {
+                Validation.AddFormError("No Desk Order was found for that ID.");
+            }
+        }
+        else
+        {
+            Validation.AddFormError("No Desk Order was found for that ID.");
+        }
+    }
+    if (IsPost && !Request["buttonDelete"].IsEmpty())
+    {
+        deskQuoteId = Request.Form["deskQuoteId"];
+        var db = Database.Open("WebPagesMegadesk");
+        var deleteCommand = "DELETE FROM MegadeskTable WHERE Id = @0";
+        db.Execute(deleteCommand, deskQuoteId);
+        Response.Redirect("~/Megadesk.cshtml");
+    }
+}
+
+<h2>Delete amDesk Order</h2>
+@Html.ValidationSummary()
+
+<form method="post">
+    <fieldset>
+        <legend>Desk Order Details</legend>
+
+        <p>
+            <span>Customer:</span>
+            <span>@customer</span>
+        </p>
+
+        <p>
+            <span>Date:</span>
+            <span>@date</span>
+        </p>
+        <p>
+            <span>Width:</span>
+            <span>@width</span>
+        </p>
+        <p>
+            <span>Depth:</span>
+            <span>@depth</span>
+        </p>
+
+        <p>
+            <span>Drawers:</span>
+            <span>@drawers</span>
+        </p>
+
+        <p>
+            <span>Material:</span>
+            <span>@material</span>
+        </p>
+        <p>
+            <span>Rush Days:</span>
+            <span>@rushorder</span>
+        </p>
+
+        <p>
+            <span>Amount:</span>
+            <span>@amount</span>
+        </p>
+
+        <input type="hidden" name="scriptureid" value="@deskQuoteId" />
+        <p><input type="submit" name="buttonDelete" value="Delete Desk Order" /></p>
+    </fieldset>
+</form>
+<p><a href="~/Megadesk.cshtml">Return to main Menu</a></p>
+
