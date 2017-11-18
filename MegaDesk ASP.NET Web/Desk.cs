@@ -7,9 +7,10 @@ namespace MegaDesk_ASP_NET_Web
 {
     public class Desk
     {
-        public int Width { get; set; }
-        public int Depth { get; set; }
-        public int NumDrawers { get; set; }
+        public int width { get; set; }
+        public int depth { get; set; }
+        public int drawers { get; set; }
+        public int surface { get; set; }
         public DesktopMaterial Material { get; set; }
 
         public enum DesktopMaterial
@@ -22,13 +23,12 @@ namespace MegaDesk_ASP_NET_Web
         };
 
         List<DesktopMaterial> materials = Enum.GetValues(typeof(DesktopMaterial)).Cast<DesktopMaterial>().ToList();
-        
 
-        public int GetSurfaceArea()
+        public string GetSurfaceArea(int width, int depth)
         {
-            int area;
-            area = Width * Depth;
-            return area;
+            int surface = depth * width;
+            return surface.ToString();
         }
+        
     }
 }

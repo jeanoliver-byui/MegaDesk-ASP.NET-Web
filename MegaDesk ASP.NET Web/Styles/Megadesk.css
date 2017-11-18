@@ -8,14 +8,11 @@ nav, footer {
     overflow: auto;
 }
 
-/*#header {
-    background-image: url(/Images/desk2.png);
-    background-repeat: no-repeat;
-    background-position: right;
-    background-size:contain;
-}*/
 #footer {
     color: rgb(9,108,147);
+    clear: both;
+    text-align: left;
+    font-size: 80%;
 }
 
 h1 {
@@ -28,11 +25,37 @@ h2 {
     display: block;
     font-size: 1.4em;
 }
+
+form .searchs {
+    width: 100%;
+}
+form .searchs .content {
+        position: relative;
+        float: left;
+        width: 33.33333%;
+        padding-left: 2em;
+        padding-bottom: 1em;
+    }
+label {
+    display: block;
+}
+input[type="text"] {
+    display: block;
+}
+
+img.align-center {
+    display: block;
+    margin: 0px auto;
+}
+
+img.size {
+    max-width: 450px;
+    width: auto;
+}
+
 #container {
     margin: 0 auto;
     background-color: whitesmoke;
-    /*opacity: 0.5;*/
-    /*background: white;*/
     padding: 20px;
     color: rgb(103,105,107);
     width: 760px;
@@ -113,7 +136,7 @@ li ul li a {
     z-index: 0;
 }
 
-    .grid th, .grid td {
+.grid th, .grid td {
         border: 1px solid #C0C0C0;
         padding: 5px;
     }
@@ -137,16 +160,3 @@ span.dataDisplay {
     font-weight: bold;
 }
 
-/*.field-validation-error {
-    font-weight: bold;
-    color: red;
-    background-color: yellow;
-}
-
-.validation-summary-errors {
-    border: 2px dashed red;
-    color: red;
-    background-color: yellow;
-    font-weight: bold;
-    margin: 12px;
-}*/ 

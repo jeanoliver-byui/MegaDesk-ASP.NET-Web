@@ -1,24 +1,19 @@
 ﻿@{
     Page.Title = "MegaDesk ASP.NET Web";
     Layout = "~/_Layout.cshtml";
-
-    var MaterialSurfaceList = new List<MegaDesk_ASP_NET_Web.Desk.DesktopMaterial>();
-    var desk = new MegaDesk_ASP_NET_Web.Desk();
-    //var quote = new MegaDesk_ASP_NET_Web.DeskQuote();
-
-    var message = "";
+    
     // Specify validation requirements for different fields.
-    Validation.RequireField("customer", "Customer name is required");
-    Validation.RequireField("width", "Width is required");
-    Validation.RequireField("depth", "Depth is required");
-    Validation.RequireField("drawers", "Drawers quantity is required");
-    Validation.RequireField("rushorder", "Rush order is required");
-    Validation.RequireField("material", "Material is required");
-    Validation.Add("width", Validator.Integer("Width must be an integer"));
-    Validation.Add("width", Validator.Range(24, 96, "Width must be between 24 and 96 Inches"));
-    Validation.Add("depth", Validator.Integer("Depth must be an integer"));
-    Validation.Add("depth", Validator.Range(24, 96, "Depth must be between 12 and 48 Inches"));
-
+    Validation.RequireField("Customer", "Customer name is required");
+    Validation.RequireField("Width", "Width is required");
+    Validation.RequireField("Depth", "Depth is required");
+    Validation.RequireField("Drawers", "Drawers quantity is required");
+    Validation.RequireField("Rushorder", "Rush order is required");
+    Validation.RequireField("Material", "Material is required");
+    Validation.Add("Width", Validator.Integer("Width must be an integer"));
+    Validation.Add("Width", Validator.Range(24, 96, "Width must be between 24 and 96 Inches"));
+    Validation.Add("Depth", Validator.Integer("Depth must be an integer"));
+    Validation.Add("Depth", Validator.Range(24, 96, "Depth must be between 12 and 48 Inches"));
+    
     if (IsPost)
     {
         // Before processing anything, make sure that all user input is valid.
@@ -32,33 +27,18 @@
             var material = Request["material"];
             var date = DateTime.Today.ToString("MM/dd/yyyy");
 
-
-            //surface = desk.calculateSurface(Convert.ToInt32(width), Convert.ToInt32(depth));
-            //desk.surface = Convert.ToInt32(surface);
-
-            //price = quote.calculatePrice(desk, material, quote);
-            //quote.price = Convert.ToInt32(price);
-
-            var amount = 9999;
-
-            message += @"Please, review the quote informations entered and submit";
-            message += @"Customer name: " + customer;
-            message += @"<br/>Desk Width: " + width.ToString();
-            message += @"<br/>Desk Depth: " + depth.ToString();
-            message += @"<br/>Drawers quantity: " + drawers.ToString();
-            message += @"<br/>Surface Material: " + material;
-            message += @"<br/>Rush Order Days: " + rushorder.ToString();
-            message += @"<br/>Today is " + date;
-
+            //Calculate new desk quote price
+            var newQuote = new MegaDesk_ASP_NET_Web.DeskQuote(width, depth, drawers, material, rushorder);
+            var amount = newQuote.DeskQuoteCalculate();
+                        
             // Further processing here
             var db = Database.Open("WebPagesMegadesk");
-            var insertCommand = "INSERT INTO MegadeskTable (customer, date, width, depth, drawers, material, rushorder, amount) VALUES(@0, @1, @2, @3, @4, @5, @6, @7)";
+            var insertCommand = "INSERT INTO MegadeskTable (Customer, Date, Width, Depth, Drawers, Material, Rushorder, Amount) VALUES(@0, @1, @2, @3, @4, @5, @6, @7)";
             db.Execute(insertCommand, customer, date, width, depth, drawers, material, rushorder, amount);
-            Response.Redirect("~/Megadesk.cshtml");
+            Response.Redirect("~/ViewQuotes.cshtml");
         }
     }
 }
-
     <h2>Add Quote</h2>
         <form method="post">
             <fieldset>
@@ -112,10 +92,11 @@
                     <select name="material">
                         @Request.Form["material"]
                     <option selected>Oak</option>
-                    <option>Laminate</option>
                     <option>Pine</option>
-                    <option>Rossewood</option>
                     <option>Veneer</option>
+                    <option>Laminate</option>
+                    <option>Rossewood</option>
+                    
                 </select>
             </p>
                 <p>
@@ -124,7 +105,8 @@
        </fieldset>
 </form>
 <p class="last_paragraph">
-    <a href="ViewQuotes.cshtml?action=list_quotes">View Quotes List</a>
+    <a href="~/ViewQuotes.cshtml">Return to List Quotes</a>
+    <a href="~/Megadesk.cshtml">Return to Main Menu</a>
 </p>
 
 

@@ -1,14 +1,16 @@
-﻿-- Script Date: 11/10/2017 8:21 PM  - ErikEJ.SqlCeScripting version 3.5.2.73
+﻿-- Script Date: 11/15/2017 8:51 PM  - ErikEJ.SqlCeScripting version 3.5.2.74
+DROP TABLE [MegadeskTable];
+GO
 CREATE TABLE [MegadeskTable] (
   [Id] int IDENTITY (1,1)  NOT NULL
-, [customer] nvarchar(100)  NOT NULL
-, [date] datetime NOT NULL
-, [width] int  NOT NULL
-, [depth] int  NOT NULL
-, [drawers] int  NOT NULL
-, [material] nvarchar(100)  NOT NULL
-, [rushorder] int  NOT NULL
-, [amount] int  NOT NULL
+, [Customer] nvarchar(100)  NOT NULL
+, [Date] nvarchar(100)  NOT NULL
+, [Width] int  NOT NULL
+, [Depth] int  NOT NULL
+, [Drawers] int  NOT NULL
+, [Material] nvarchar(100)  NOT NULL
+, [Rushorder] int  NOT NULL
+, [Amount] int  NOT NULL
 );
 GO
 ALTER TABLE [MegadeskTable] ADD CONSTRAINT [PK_MegadeskTable] PRIMARY KEY ([Id]);
