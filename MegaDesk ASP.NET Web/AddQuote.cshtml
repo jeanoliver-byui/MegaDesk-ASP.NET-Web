@@ -71,8 +71,8 @@
                     <label for="drawers">Drawers:</label>
                     <select name="drawers">
                         @Request.Form["rushDays"]
-                        <option selected>0</option>
-                        @for (int i = 1; i <= 10; i++) {
+                        <option selected>1</option>
+                        @for (int i = 2; i <= 10; i++) {
                         <option>@i</option>
                         }
                     </select>
@@ -105,7 +105,7 @@
        </fieldset>
 </form>
 <p class="last_paragraph">
-    <a href="~/ViewQuotes.cshtml">Return to List Quotes</a>
+    <a href="~/ViewQuotes.cshtml">Return to List Quotes</a><br />
     <a href="~/Megadesk.cshtml">Return to Main Menu</a>
 </p>
 
